@@ -1,8 +1,25 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/Equanox/gotron"
 )
+
+// CustomEvent - Create a custom event struct that has a pointer to gotron.Event
+type CustomEvent struct {
+	*gotron.Event
+	CustomAttribute string `json:"AtrNameInFrontend"`
+}
+
+func count(window *gotron.BrowserWindow) {
+	window.Send(&CustomEvent{
+		Event:           &gotron.Event{Event: "event-name"},
+		CustomAttribute: "Hello World!",
+	})
+
+	fmt.Println("here")
+}
 
 func main() {
 	// Create a new browser window instance
@@ -25,8 +42,9 @@ func main() {
 	}
 
 	// Open dev tools must be used after window.Start
-	// window.OpenDevTools()
+	window.OpenDevTools()
 
+	count(window)
 	// Wait for the application to close
 	<-done
 }
