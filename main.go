@@ -35,6 +35,10 @@ func main() {
 	window.WindowOptions.Width = 1200
 	window.WindowOptions.Height = 980
 	window.WindowOptions.Title = "Gotron boilerplate"
+	window.On(&gotron.Event{Event: "toggle"}, func(bin []byte) {
+		s := string(bin)
+		fmt.Printf("got it! %v", s)
+	})
 
 	// Start the browser window.
 	// This will establish a golang <=> nodejs bridge using websockets,
