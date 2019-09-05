@@ -10,18 +10,18 @@ import (
 // CustomEvent - Create a custom event struct that has a pointer to gotron.Event
 type CustomEvent struct {
 	*gotron.Event
-	CustomAttribute string `json:"AtrNameInFrontend"`
+	Value string `json:"value"`
 }
 
-func count(window *gotron.BrowserWindow) {
-	fmt.Println("count here")
+func count(window *gotron.BrowserWindow, num int) {
 	window.Send(&CustomEvent{
-		Event:           &gotron.Event{Event: "event-name"},
-		CustomAttribute: "Hello World... wassup??!",
+		Event: &gotron.Event{Event: "purple cat"},
+		Value: fmt.Sprintf("value %v ", num),
 	})
 
 	time.Sleep(2 * time.Second)
-	count(window)
+	num++
+	count(window, num)
 }
 
 func main() {
@@ -47,7 +47,7 @@ func main() {
 	// Open dev tools must be used after window.Start
 	window.OpenDevTools()
 
-	count(window)
+	count(window, 0)
 	// Wait for the application to close
 	<-done
 }

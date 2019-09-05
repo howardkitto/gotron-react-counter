@@ -1,31 +1,30 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 export default () => {
 
-    let[message, setMessage] = useState()
+    let[message, setMessage] = useState({})
 
     let connectionString = "ws://localhost:" + global.backendPort + "/web/app/events"
 
-    let ws = new WebSocket(connectionString);
+    useEffect((()=>{
 
-    ws.onmessage = (message) => {
-        let obj = JSON.parse(message.data);
-        
-        // event name
-        console.log(obj.event);
-    
-        // event data
-        console.log(obj.AtrNameInFrontend);
+        let ws = new WebSocket(connectionString);
 
-        // setMessage(obj.event)
+        ws.onmessage = (e) => {
+            let obj = JSON.parse(e.data);
+                        
+            setMessage({event: obj.event, value: obj.value});
+          };
 
-        ws.close
-    }
-    return <div>Hello You
-        <p>
-            {message}
-        </p>
-        
+          return () => {
+            ws.close()
+          }
+
+    }),[])
+
+    return <div> 
+        {message.event}&nbsp;{message.value}
+                
     </div>
 }
 
