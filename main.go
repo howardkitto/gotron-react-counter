@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/Equanox/gotron"
 )
@@ -13,12 +14,14 @@ type CustomEvent struct {
 }
 
 func count(window *gotron.BrowserWindow) {
+	fmt.Println("count here")
 	window.Send(&CustomEvent{
 		Event:           &gotron.Event{Event: "event-name"},
-		CustomAttribute: "Hello World!",
+		CustomAttribute: "Hello World... wassup??!",
 	})
 
-	fmt.Println("here")
+	time.Sleep(2 * time.Second)
+	count(window)
 }
 
 func main() {

@@ -1,7 +1,31 @@
-import React, { Component } from "react";
+import React, {useState} from 'react'
 
-export default class App extends Component {
-    render() {
-        return <h1>Hello Gotron! Here I am</h1>
+export default () => {
+
+    let[message, setMessage] = useState()
+
+    let connectionString = "ws://localhost:" + global.backendPort + "/web/app/events"
+
+    let ws = new WebSocket(connectionString);
+
+    ws.onmessage = (message) => {
+        let obj = JSON.parse(message.data);
+        
+        // event name
+        console.log(obj.event);
+    
+        // event data
+        console.log(obj.AtrNameInFrontend);
+
+        // setMessage(obj.event)
+
+        ws.close
     }
+    return <div>Hello You
+        <p>
+            {message}
+        </p>
+        
+    </div>
 }
+
