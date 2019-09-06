@@ -12,8 +12,7 @@ export default () => {
     useEffect(()=>{
     
         ws.onmessage = (e) => {
-            let obj = JSON.parse(e.data);            
-                        
+            let obj = JSON.parse(e.data);                                    
             setMessage({event: obj.event, value: obj.value});
           };
 
@@ -32,9 +31,6 @@ export default () => {
     },[toggle])
 
     
-
-
-
     return <div> 
         <div>Toggle {toggle?"true":"false"}</div>
         <div>{message.event}&nbsp;{message.value}</div>

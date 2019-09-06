@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"time"
 
@@ -13,6 +14,14 @@ type CustomEvent struct {
 	Value string `json:"value"`
 }
 
+// UIMessage - communication from front end
+type UIMessage struct {
+	Event string `json:"event"`
+	Value bool `json:"value"`
+}
+
+var toggle = true
+
 func count(window *gotron.BrowserWindow, num int) {
 	window.Send(&CustomEvent{
 		Event: &gotron.Event{Event: "purple cat"},
@@ -21,7 +30,11 @@ func count(window *gotron.BrowserWindow, num int) {
 
 	time.Sleep(2 * time.Second)
 	num++
-	count(window, num)
+
+	if toggle == true {
+		count(window, num)
+	}
+	
 }
 
 func main() {
@@ -36,8 +49,19 @@ func main() {
 	window.WindowOptions.Height = 980
 	window.WindowOptions.Title = "Gotron boilerplate"
 	window.On(&gotron.Event{Event: "toggle"}, func(bin []byte) {
-		s := string(bin)
-		fmt.Printf("got it! %v", s)
+		// s := string(bin)
+		// fmt.Printf("got it! %v", s)
+
+		var m UIMessage
+		err := json.Unmarshal(bin, &m)
+		if err != nil {
+			fmt.Println(err)
+		}
+		toggle = m.Value
+		if m.Event == "toggle" && m.Value == true{			
+			count(window, 0)			
+		}
+
 	})
 
 	// Start the browser window.
@@ -50,8 +74,7 @@ func main() {
 
 	// Open dev tools must be used after window.Start
 	window.OpenDevTools()
-
-	count(window, 0)
+	
 	// Wait for the application to close
 	<-done
 }
