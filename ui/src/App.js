@@ -27,8 +27,8 @@ const AppWrapper = (props)=>{
     useEffect(()=>{
         
         if (sendMessage !== undefined){
-            console.log("sending")
-            console.log(sendMessage)
+            // console.log("sending")
+            // console.log(sendMessage)
             window.ws.send(JSON.stringify(sendMessage))           
         }        
     }, [sendMessage])

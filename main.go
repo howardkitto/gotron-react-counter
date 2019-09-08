@@ -30,8 +30,7 @@ func count(window *gotron.BrowserWindow, num int) {
 
 	time.Sleep(2 * time.Second)
 	num++
-	fmt.Println("toggle is ", toggle)
-
+	
 	if toggle == true {
 		count(window, num)
 	}
