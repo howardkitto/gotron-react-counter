@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {useGlobalState} from './GlobalState'
+import styled from 'styled-components'
 
 export default () => {
 
@@ -18,6 +19,11 @@ export default () => {
 
     return<div>
             <div>{m&&m.value}</div>
-            <button onClick={()=>switchToggle(!toggle)}>Click to send {toggle?"false":"true"}</button>             
+            <CounterButton onClick={()=>switchToggle(!toggle)}>Click to {toggle?"stop":"start"} the counter</CounterButton>             
         </div>
 }
+
+const CounterButton = styled.button`
+height : 100px;
+border-radius :25px;
+`

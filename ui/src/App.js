@@ -2,6 +2,9 @@ import React, {useEffect} from 'react'
 import {StateProvider, useGlobalState} from './GlobalState'
 import reducer from "./reducer"
 
+import styled, {createGlobalStyle} from 'styled-components'
+
+
 import Counter from './Counter'
 
 const AppWrapper = (props)=>{
@@ -36,11 +39,14 @@ const AppWrapper = (props)=>{
     return <span>{props.children}</span>
 }
 
+
+
 export default ()=>{
     
     return(
         
             <StateProvider initialState={{}} reducer={reducer}>   
+             <GlobalStyle/>
                 <AppWrapper>
                     <Counter/>
                 </AppWrapper>                                             
@@ -48,4 +54,19 @@ export default ()=>{
     
         
         )}
+        const GlobalStyle = createGlobalStyle `
+        html {
+      
+            background-color: darkblue;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+        }
+      
+        body{
+            font-family: Arial;
+            color: white;
+        }
+      `
 
