@@ -20,7 +20,7 @@ type UIMessage struct {
 	Value bool   `json:"value"`
 }
 
-var toggle = true
+var toggle = false
 
 func count(window *gotron.BrowserWindow, num int) {
 	window.Send(&CustomEvent{
@@ -30,6 +30,7 @@ func count(window *gotron.BrowserWindow, num int) {
 
 	time.Sleep(2 * time.Second)
 	num++
+	fmt.Println("toggle is ", toggle)
 
 	if toggle == true {
 		count(window, num)
@@ -58,9 +59,9 @@ func main() {
 			fmt.Println("is it this one", err)
 		}
 
-		if m.Event == "toggle" && m.Value != toggle {
-			fmt.Println("change toggle")
-			toggle = !toggle
+		if m.Event == "toggle"{			
+			toggle = m.Value
+			go count(window, 0)
 		}
 
 	})
@@ -76,7 +77,7 @@ func main() {
 	// Open dev tools must be used after window.Start
 	window.OpenDevTools()
 
-	count(window, 0)
+	// count(window, 0)
 
 	// Wait for the application to close
 	<-done
