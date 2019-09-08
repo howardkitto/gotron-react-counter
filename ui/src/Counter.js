@@ -8,15 +8,16 @@ export default () => {
     const [toggle, switchToggle]=useState(true)
 
     useEffect(()=>{ setM(message)},[message])
+    useEffect(()=>{sendMessage({
+        type:"sendMessage",
+        message:{
+            event: "toggle",
+            value: toggle
+        }
+    })},[toggle])
 
     return<div>
             <div>{m&&m.value}</div>
-            <button onClick={()=>sendMessage({
-                type:"sendMessage",
-                message:{
-                    event: "toggle",
-                    value: true
-                }
-            })}>Click to send </button>             
+            <button onClick={()=>switchToggle(!toggle)}>Click to send </button>             
         </div>
 }
