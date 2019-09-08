@@ -19,7 +19,7 @@ const AppWrapper = (props)=>{
                                     value:obj.value}})
                         };
           return () => {
-            ws.close()
+            window.ws.close()
           }
 
     },[])
@@ -29,7 +29,7 @@ const AppWrapper = (props)=>{
         if (sendMessage !== undefined){
             console.log("sending")
             console.log(sendMessage)
-            window.ws.send(JSON.stringify(sendMessage))
+            window.ws.send(JSON.stringify(sendMessage))           
         }        
     }, [sendMessage])
   

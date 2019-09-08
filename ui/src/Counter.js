@@ -5,6 +5,7 @@ export default () => {
 
     const [{message}, sendMessage ]= useGlobalState()
     const [m, setM]=useState({})
+    const [toggle, switchToggle]=useState(true)
 
     useEffect(()=>{ setM(message)},[message])
 
@@ -14,8 +15,8 @@ export default () => {
                 type:"sendMessage",
                 message:{
                     event: "toggle",
-                    value: "value " + m.value
+                    value: true
                 }
-            })}>Click to send</button>
+            })}>Click to send </button>             
         </div>
 }

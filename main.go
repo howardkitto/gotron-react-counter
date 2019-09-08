@@ -17,7 +17,7 @@ type CustomEvent struct {
 // UIMessage - communication from front end
 type UIMessage struct {
 	Event string `json:"event"`
-	Value bool `json:"value"`
+	Value bool   `json:"value"`
 }
 
 var toggle = true
@@ -34,7 +34,7 @@ func count(window *gotron.BrowserWindow, num int) {
 	if toggle == true {
 		count(window, num)
 	}
-	
+
 }
 
 func main() {
@@ -50,16 +50,17 @@ func main() {
 	window.WindowOptions.Title = "Gotron boilerplate"
 	window.On(&gotron.Event{Event: "toggle"}, func(bin []byte) {
 		s := string(bin)
-		fmt.Printf("got it! %v", s)
+		fmt.Printf("got it! %v\n", s)
 
 		var m UIMessage
 		err := json.Unmarshal(bin, &m)
 		if err != nil {
-			fmt.Println(err)
+			fmt.Println("is it this one", err)
 		}
-		toggle = m.Value
-		if m.Event == "toggle" && m.Value == true{			
-			count(window, 0)			
+
+		if m.Event == "toggle" && m.Value != toggle {
+			fmt.Println("change toggle")
+			toggle = !toggle
 		}
 
 	})
@@ -76,7 +77,7 @@ func main() {
 	window.OpenDevTools()
 
 	count(window, 0)
-	
+
 	// Wait for the application to close
 	<-done
 }
