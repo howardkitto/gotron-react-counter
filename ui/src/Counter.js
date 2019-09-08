@@ -18,6 +18,6 @@ export default () => {
 
     return<div>
             <div>{m&&m.value}</div>
-            <button onClick={()=>switchToggle(!toggle)}>Click to send </button>             
+            <button onClick={()=>switchToggle(!toggle)}>Click to send {toggle?"true":"false"}</button>             
         </div>
 }
