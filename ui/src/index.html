@@ -9,4 +9,9 @@
   <body>
     <section id="root"></section>
   </body>
+  <script>
+      const connectionString = "ws://localhost:" + global.backendPort + "/web/app/events"
+
+      window.ws = new WebSocket(connectionString);
+  </script>
 </html>

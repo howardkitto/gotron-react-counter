@@ -49,8 +49,8 @@ func main() {
 	window.WindowOptions.Height = 980
 	window.WindowOptions.Title = "Gotron boilerplate"
 	window.On(&gotron.Event{Event: "toggle"}, func(bin []byte) {
-		// s := string(bin)
-		// fmt.Printf("got it! %v", s)
+		s := string(bin)
+		fmt.Printf("got it! %v", s)
 
 		var m UIMessage
 		err := json.Unmarshal(bin, &m)
@@ -74,6 +74,8 @@ func main() {
 
 	// Open dev tools must be used after window.Start
 	window.OpenDevTools()
+
+	count(window, 0)
 	
 	// Wait for the application to close
 	<-done
