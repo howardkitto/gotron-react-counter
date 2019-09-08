@@ -38,7 +38,6 @@ const AppWrapper = (props)=>{
 
 export default ()=>{
     
-
     return(
         
             <StateProvider initialState={{}} reducer={reducer}>   
