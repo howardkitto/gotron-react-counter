@@ -10,3 +10,13 @@ This small app demonstrates how to integrate
 You can see birectional communication with ws sockets and state being passed down to child components
 
 Web socket is set as a window global in the index.html file
+
+```
+cd ui
+
+npm install
+
+cd ../
+
+./build.sh
+```
