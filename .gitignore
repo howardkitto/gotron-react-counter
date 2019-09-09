@@ -4,3 +4,7 @@ go.sum
 .gotron/
 ui/dist/
 ui/node_modules/
+node_modules/
+gotron-react-boilerplate
+package-lock.json
+yarn.lock

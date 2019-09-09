@@ -1,33 +1,72 @@
-import React, {useState} from 'react'
-import useSocket from 'use-socket.io-client';
+import React, {useEffect} from 'react'
+import {StateProvider, useGlobalState} from './GlobalState'
+import reducer from "./reducer"
 
-export default () => {
+import styled, {createGlobalStyle} from 'styled-components'
 
-    let[message, setMessage] = useState()
-    let connectionString = "ws://localhost:" + global.backendPort + "/web/app/events"
-    const [socket] = useSocket(connectionString);
 
-    socket.connect();
-    console.log(socket);    
+import Counter from './Counter'
 
-    // ws.onmessage = (message) => {
-    //     let obj = JSON.parse(message.data);
-        
-    //     // event name
-    //     console.log(obj.event);
+const AppWrapper = (props)=>{
+
+    const [{message},gotMessage]=useGlobalState()
+    const [{sendMessage}, dispatchMessage]=useGlobalState({})
+
+    useEffect(()=>{
     
-    //     // event data
-    //     console.log(obj.AtrNameInFrontend);
+        window.ws.onmessage = (e) => {
+            let obj = JSON.parse(e.data);                                                
+            gotMessage({    type:"gotMessage", 
+                            message:
+                                {   event:obj.event, 
+                                    value:obj.value}})
+                        };
+          return () => {
+            window.ws.close()
+          }
 
-    //     // setMessage(obj.event)
+    },[])
 
-    //     ws.close
-    // }
-    return <div>Hello You
-        <p>
-            {message}
-        </p>
+    useEffect(()=>{
         
-    </div>
+        if (sendMessage !== undefined){
+            // console.log("sending")
+            // console.log(sendMessage)
+            window.ws.send(JSON.stringify(sendMessage))           
+        }        
+    }, [sendMessage])
+  
+    return <span>{props.children}</span>
 }
+
+
+
+export default ()=>{
+    
+    return(
+        
+            <StateProvider initialState={{}} reducer={reducer}>   
+             <GlobalStyle/>
+                <AppWrapper>
+                    <Counter/>
+                </AppWrapper>                                             
+        </StateProvider>
+    
+        
+        )}
+        const GlobalStyle = createGlobalStyle `
+        html {
+      
+            background-color: darkblue;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+        }
+      
+        body{
+            font-family: Arial;
+            color: white;
+        }
+      `
 
