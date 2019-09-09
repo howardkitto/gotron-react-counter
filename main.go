@@ -47,7 +47,7 @@ func main() {
 	// Alter default window size and window title.
 	window.WindowOptions.Width = 1200
 	window.WindowOptions.Height = 980
-	window.WindowOptions.Title = "Gotron boilerplate"
+	window.WindowOptions.Title = "Gotron React Counter"
 	window.On(&gotron.Event{Event: "toggle"}, func(bin []byte) {
 		s := string(bin)
 		fmt.Printf("got it! %v\n", s)

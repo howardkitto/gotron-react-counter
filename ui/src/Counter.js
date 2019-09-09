@@ -18,6 +18,7 @@ export default () => {
     })},[toggle])
 
     return<div>
+        <h1>Counter</h1>
             <div>{m&&m.value}</div>
             <CounterButton onClick={()=>switchToggle(!toggle)}>Click to {toggle?"stop":"start"} the counter</CounterButton>             
         </div>

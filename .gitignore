@@ -5,6 +5,6 @@ go.sum
 ui/dist/
 ui/node_modules/
 node_modules/
-gotron-react-boilerplate
+gotron-react-counter
 package-lock.json
 yarn.lock
