@@ -5,4 +5,4 @@ cd ui
 npm start
 cd ../
 go build
-./gotron-react-boilerplate 
+./gotron-react-counter 

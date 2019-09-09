@@ -11,7 +11,8 @@
   "author": "Marlon Monroy",
   "dependencies": {
     "react": "16.8",
-    "react-dom": "16.8"
+    "react-dom": "16.8",
+    "styled-components": "^4.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
